@@ -32,3 +32,4 @@ buildNumber.properties
 .mvn/timing.properties
 *.iml
 .idea
+.DS_Store
