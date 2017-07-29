@@ -8,7 +8,7 @@ public class DriverManager {
 
     private WebDriver driver;
 
-    private long waitInterval = 5000;
+    private long waitIntervalInMillis = 5000;
 
     private int waitAttemptsCount = 5;
 
@@ -20,12 +20,12 @@ public class DriverManager {
         return driver;
     }
 
-    public void click(By elementId){
+    public void click(By elementId) {
         execute(() -> driver.findElement(elementId).click());
     }
 
     private void execute(Runnable runnable) {
-        String message = "Initial empty message";
+        String message = "";
 
         for (int i = 0; i < waitAttemptsCount; i++) {
             try {
@@ -35,7 +35,7 @@ public class DriverManager {
                 message = exception.getMessage();
             }
             try {
-                Thread.sleep(waitInterval);
+                Thread.sleep(waitIntervalInMillis);
             } catch (InterruptedException exception) {
                 throw new RuntimeException(exception);
             }

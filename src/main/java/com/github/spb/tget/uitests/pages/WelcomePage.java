@@ -3,13 +3,13 @@ package com.github.spb.tget.uitests.pages;
 import com.github.spb.tget.uitests.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 
-import static com.github.spb.tget.uitests.maps.HomePageMap.*;
+import static com.github.spb.tget.uitests.maps.elements.UserProfileDropDown.*;
 
-public class HomePage extends Page {
+public class WelcomePage extends Page {
 
     private DriverManager driverManager;
 
-    public HomePage(WebDriver driver) {
+    public WelcomePage(WebDriver driver) {
         driverManager = new DriverManager(driver);
     }
 
@@ -21,7 +21,7 @@ public class HomePage extends Page {
         driverManager.getDriver().navigate().to(getUrl());
     }
 
-    public void clickSignIn() {
-        driverManager.getDriver().findElement(signInLink()).click();
+    public Boolean isAt() {
+        return !driverManager.getDriver().findElements(profileDropDownLink()).isEmpty();
     }
 }
