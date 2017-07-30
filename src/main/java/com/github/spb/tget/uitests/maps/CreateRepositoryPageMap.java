@@ -30,4 +30,12 @@ public final class CreateRepositoryPageMap {
     public static By createRepositoryButton() {
         return By.xpath("//button[contains(text(),'Create repository')]");
     }
+
+    public static By templateDropDownItems(){
+        return By.cssSelector("div[class=\"select-menu-item-text js-select-button-text\"]");
+    }
+
+    public static By addGitIgnoreButtonSelectionText(){
+        return By.cssSelector("span[class=\"js-select-button\"]");
+    }
 }

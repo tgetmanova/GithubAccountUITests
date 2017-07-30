@@ -2,6 +2,7 @@ package com.github.spb.tget.uitests.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class RandomUtils {
@@ -20,5 +21,10 @@ public class RandomUtils {
 
     public static String getRandomString(int charactersCount) {
         return RandomStringUtils.randomAlphanumeric(charactersCount);
+    }
+
+    public static Object getRandomElement(Collection collection) {
+        int i = random.nextInt(collection.size());
+        return collection.toArray()[i];
     }
 }

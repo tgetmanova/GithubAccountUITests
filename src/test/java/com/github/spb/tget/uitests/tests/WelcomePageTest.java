@@ -54,7 +54,8 @@ public class WelcomePageTest extends BaseTest{
         createRepositoryPage.withRepositoryName(expectedRepoName)
                 .withRepositoryDescription(RandomUtils.getRandomString(25))
                 .withIsReadMeFileNeeded(RandomUtils.getRandomBoolean())
-                .withGitIgnoreTemplate("Java")
+                .withRandomGitIgnoreTemplate()
+                .verifyGitIgnoreTemplateIsSet()
                 .create();
         repositoryPage.isAt(UserContext.getLogin(), expectedRepoName);
     }
