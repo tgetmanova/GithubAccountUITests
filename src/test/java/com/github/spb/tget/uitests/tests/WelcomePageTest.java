@@ -6,13 +6,11 @@ import com.github.spb.tget.uitests.utils.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class WelcomePageTest extends BaseTest {
+public class WelcomePageTest extends BaseTest{
 
     private LoginPage loginPage;
 
     private WelcomePage welcomePage;
-
-    private HomePage homePage;
 
     private TopPane topPane;
 
@@ -20,17 +18,22 @@ public class WelcomePageTest extends BaseTest {
 
     private RepositoryPage repositoryPage;
 
+    private PageFactory pageFactory = new PageFactory(getDriver());
+
     public WelcomePageTest() {
-        welcomePage = new WelcomePage(getDriver());
-        loginPage = new LoginPage(getDriver());
-        homePage = new HomePage(getDriver());
+        pageFactory = new PageFactory(getDriver());
+
+        loginPage = (LoginPage) pageFactory.createPage(LoginPage.class);
+        welcomePage = (WelcomePage)pageFactory.createPage(WelcomePage.class);
+        createRepositoryPage = (CreateRepositoryPage)pageFactory.createPage(CreateRepositoryPage.class);
+        repositoryPage = (RepositoryPage)pageFactory.createPage(RepositoryPage.class);
+
         topPane = new TopPane(getDriver());
-        createRepositoryPage = new CreateRepositoryPage(getDriver());
-        repositoryPage = new RepositoryPage(getDriver());
     }
 
     @Test
     public void firstAcceptanceTest() {
+        HomePage homePage = (HomePage) pageFactory.createPage(HomePage.class);
         homePage.goTo();
         if (!welcomePage.isAt()) {
             homePage.clickSignIn();
