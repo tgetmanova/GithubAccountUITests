@@ -1,6 +1,6 @@
 package com.github.spb.tget.uitests.tests;
 
-import com.github.spb.tget.uitests.Utils.UserContext;
+import com.github.spb.tget.uitests.utils.UserContext;
 import com.github.spb.tget.uitests.pages.*;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import org.junit.Assert;

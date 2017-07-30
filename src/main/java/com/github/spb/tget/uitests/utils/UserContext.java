@@ -1,6 +1,4 @@
-package com.github.spb.tget.uitests.Utils;
-
-import com.github.spb.tget.uitests.utils.ContextUtils;
+package com.github.spb.tget.uitests.utils;
 
 public final class UserContext {
 
