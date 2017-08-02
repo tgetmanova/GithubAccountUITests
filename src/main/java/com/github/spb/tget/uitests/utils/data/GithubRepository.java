@@ -25,4 +25,12 @@ public class GithubRepository {
         private String type;
         private Boolean site_admin;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
