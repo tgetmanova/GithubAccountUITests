@@ -51,7 +51,7 @@ public class CreateRepositoryPage extends Page {
                 .filter(i -> i.getText().equalsIgnoreCase(gitIgnoreTemplateName))
                 .findFirst().orElse(null);
         if (targetTemplate == null){
-            throw new IllegalStateException("The git ignore template name is incorrect: " + gitIgnoreTemplateName);
+            throw new IllegalArgumentException("The git ignore template name is incorrect: " + gitIgnoreTemplateName);
         }
         targetTemplate.click();
         return this;
