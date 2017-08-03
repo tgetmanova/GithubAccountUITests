@@ -45,10 +45,15 @@ public class CreateRepositoryPage extends Page {
         return this;
     }
 
-    public CreateRepositoryPage withGitIgnoreTemplate(String gitIgnoreTemplate) {
+    public CreateRepositoryPage withGitIgnoreTemplate(String gitIgnoreTemplateName) {
         driverManager.getDriver().findElement(addGitIgnoreButton()).click();
-        driverManager.getDriver().findElement(gitIgnoreField()).sendKeys(gitIgnoreTemplate);
-        driverManager.getDriver().findElement(gitIgnoreField()).sendKeys(Keys.ENTER);
+        WebElement targetTemplate = getTemplates().stream()
+                .filter(i -> i.getText().equalsIgnoreCase(gitIgnoreTemplateName))
+                .findFirst().orElse(null);
+        if (targetTemplate == null){
+            throw new IllegalStateException("The git ignore template name is incorrect: " + gitIgnoreTemplateName);
+        }
+        targetTemplate.click();
         return this;
     }
 
@@ -56,14 +61,7 @@ public class CreateRepositoryPage extends Page {
         driverManager.getDriver().findElement(addGitIgnoreButton()).click();
         currentGitIgnoreTemplate = (WebElement) RandomUtils.getRandomElement(getTemplates());
         currentGitIgnoreTemplate.click();
-        return this;
-    }
-
-    public CreateRepositoryPage verifyGitIgnoreTemplateIsSet() {
-        if (!driverManager.getDriver().findElement(addGitIgnoreButtonSelectionText()).getText()
-                .contains(currentGitIgnoreTemplate.getText())) {
-            throw new RuntimeException("Git Ignore template has not been set");
-        }
+        verifyGitIgnoreTemplateIsSet();
         return this;
     }
 
@@ -73,5 +71,13 @@ public class CreateRepositoryPage extends Page {
 
     private List<WebElement> getTemplates() {
         return driverManager.getDriver().findElements(CreateRepositoryPageMap.templateDropDownItems());
+    }
+
+    private CreateRepositoryPage verifyGitIgnoreTemplateIsSet() {
+        if (!driverManager.getDriver().findElement(addGitIgnoreButtonSelectionText()).getText()
+                .contains(currentGitIgnoreTemplate.getText())) {
+            throw new RuntimeException("Git Ignore template has not been set");
+        }
+        return this;
     }
 }

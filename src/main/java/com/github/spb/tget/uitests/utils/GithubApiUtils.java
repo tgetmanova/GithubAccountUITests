@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 import static com.github.spb.tget.uitests.utils.UserContext.*;
 
@@ -29,22 +30,18 @@ public class GithubApiUtils {
     private static Gson gson = new Gson();
 
     public static GithubRepository getRepository(String name) {
-        return Arrays.asList(getRepositories())
-                .stream()
+        return getRepositories().stream()
                 .filter(i -> i.getName().equalsIgnoreCase(name))
-                .findAny()
-                .orElse(null);
+                .findAny().orElse(null);
     }
 
     public static String createRepository() {
         HttpPost createRequest = new HttpPost(REPOSITORIES_URL);
         setCommonHeaders(createRequest);
-
         try {
             createRequest.setEntity(getValidRepositoryEntity());
             HttpResponse response = getClient().execute(createRequest);
             return getRepositoryFromResponse(response.getEntity().getContent()).getName();
-
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
@@ -54,7 +51,6 @@ public class GithubApiUtils {
         HttpDelete deleteRequest = new HttpDelete(DELETE_REPOSITORY_URL.replace("{user_login}", getLogin())
                 .replace("{repository_name}", repositoryName));
         setCommonHeaders(deleteRequest);
-
         try {
             getClient().execute(deleteRequest);
         } catch (IOException ioe) {
@@ -62,14 +58,12 @@ public class GithubApiUtils {
         }
     }
 
-    public static GithubRepository[] getRepositories() {
+    public static List<GithubRepository> getRepositories() {
         HttpGet getRequest = new HttpGet(REPOSITORIES_URL);
         setCommonHeaders(getRequest);
-
         try {
             HttpResponse response = getClient().execute(getRequest);
-            return getRepositoriesFromResponse(response.getEntity().getContent());
-
+            return Arrays.asList(getRepositoriesFromResponse(response.getEntity().getContent()));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }

@@ -1,8 +1,10 @@
 package com.github.spb.tget.uitests.tests;
 
+import com.github.spb.tget.uitests.utils.GithubApiUtils;
 import com.github.spb.tget.uitests.utils.UserContext;
 import com.github.spb.tget.uitests.pages.*;
 import com.github.spb.tget.uitests.utils.RandomUtils;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,9 +56,15 @@ public class WelcomePageTest extends BaseTest{
         createRepositoryPage.withRepositoryName(expectedRepoName)
                 .withRepositoryDescription(RandomUtils.getRandomString(25))
                 .withIsReadMeFileNeeded(RandomUtils.getRandomBoolean())
-                .withRandomGitIgnoreTemplate()
-                .verifyGitIgnoreTemplateIsSet()
+                .withGitIgnoreTemplate("VisualStudio")
                 .create();
         repositoryPage.isAt(UserContext.getLogin(), expectedRepoName);
+    }
+
+    @AfterClass
+    public static void CleanupRepositories(){
+        GithubApiUtils.getRepositories().stream()
+                .map(rep -> rep.getName())
+                .forEach(n -> GithubApiUtils.deleteRepository(n));
     }
 }
