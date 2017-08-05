@@ -1,16 +1,16 @@
 package com.github.spb.tget.uitests.driver;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 
 public class DriverManager {
 
     private WebDriver driver;
 
-    private long waitIntervalInMillis = 5000;
+    private long defaultWaitIntervalInMillis = 5000;
 
-    private int waitAttemptsCount = 5;
+    private int defaultWaitAttemptsCount = 5;
 
     public DriverManager(WebDriver driver) {
         this.driver = driver;
@@ -20,11 +20,25 @@ public class DriverManager {
         return driver;
     }
 
-    public void click(By elementId) {
-        execute(() -> driver.findElement(elementId).click());
+    public void click(WebElement element) {
+        execute(() -> element.click());
     }
 
-    private void execute(Runnable runnable) {
+    public Boolean tryFindElementElseNull(WebElement element){
+       try {
+           execute(() -> element.isDisplayed(), 3, 1000);
+           return true;
+       }
+       catch (WebDriverException driverException){
+           return null;
+       }
+    }
+
+    private void execute(Runnable runnable){
+        execute(runnable, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
+    }
+
+    private void execute(Runnable runnable, int waitAttemptsCount, long waitIntervalInMillis) {
         String message = "";
 
         for (int i = 0; i < waitAttemptsCount; i++) {

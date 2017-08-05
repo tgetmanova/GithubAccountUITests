@@ -1,24 +1,46 @@
 package com.github.spb.tget.uitests.pages;
 
 import com.github.spb.tget.uitests.driver.DriverManager;
-import com.github.spb.tget.uitests.maps.CreateRepositoryPageMap;
 import com.github.spb.tget.uitests.utils.RandomUtils;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static com.github.spb.tget.uitests.maps.CreateRepositoryPageMap.*;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class CreateRepositoryPage extends Page {
 
-    private DriverManager driverManager;
+    @FindBy(id = "repository_name")
+    private WebElement repositoryNameField;
 
-    private WebElement currentGitIgnoreTemplate;
+    @FindBy(id = "repository_description")
+    private WebElement repositoryDescription;
+
+    @FindBy(id = "repository_auto_init")
+    private WebElement isReadMeFileNeededCheckbox;
+
+    @FindBy(xpath = "//*[text() = 'Add .gitignore:']")
+    private WebElement addGitIgnoreButton;
+
+    @FindBy(xpath = "//*[text() = 'Add .gitignore:']")
+    private WebElement gitIgnoreField;
+
+    @FindBy(xpath = "//button[contains(text(),'Create repository')]")
+    private WebElement createRepositoryButton;
+
+    @FindBy(css = "div[class=\"select-menu-item-text js-select-button-text\"]")
+    private List<WebElement> templateDropDownItems;
+
+    @FindBy(css = "span[class=\"js-select-button\"]")
+    private WebElement addGitIgnoreButtonSelectionText;
+
+    private DriverManager driverManager;
 
     public CreateRepositoryPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
+        initElements(driver, this);
     }
 
     public Boolean isAt() {
@@ -26,17 +48,16 @@ public class CreateRepositoryPage extends Page {
     }
 
     public CreateRepositoryPage withRepositoryName(String repositoryName) {
-        driverManager.getDriver().findElement(repositoryNameField()).sendKeys(repositoryName);
+        repositoryNameField.sendKeys(repositoryName);
         return this;
     }
 
-    public CreateRepositoryPage withRepositoryDescription(String repositoryDescription) {
-        driverManager.getDriver().findElement(repositoryDescription()).sendKeys(repositoryDescription);
+    public CreateRepositoryPage withRepositoryDescription(String description) {
+        repositoryDescription.sendKeys(description);
         return this;
     }
 
     public CreateRepositoryPage withIsReadMeFileNeeded(Boolean isReadMeFileNeeded) {
-        WebElement isReadMeFileNeededCheckbox = driverManager.getDriver().findElement(isReadMeFileNeededCheckbox());
         if (isReadMeFileNeeded && !isReadMeFileNeededCheckbox.isSelected()) {
             isReadMeFileNeededCheckbox.click();
         } else if (!isReadMeFileNeeded && isReadMeFileNeededCheckbox.isSelected()) {
@@ -46,11 +67,11 @@ public class CreateRepositoryPage extends Page {
     }
 
     public CreateRepositoryPage withGitIgnoreTemplate(String gitIgnoreTemplateName) {
-        driverManager.getDriver().findElement(addGitIgnoreButton()).click();
+        addGitIgnoreButton.click();
         WebElement targetTemplate = getTemplates().stream()
                 .filter(i -> i.getText().equalsIgnoreCase(gitIgnoreTemplateName))
                 .findFirst().orElse(null);
-        if (targetTemplate == null){
+        if (targetTemplate == null) {
             throw new IllegalArgumentException("The git ignore template name is incorrect: " + gitIgnoreTemplateName);
         }
         targetTemplate.click();
@@ -58,24 +79,23 @@ public class CreateRepositoryPage extends Page {
     }
 
     public CreateRepositoryPage withRandomGitIgnoreTemplate() {
-        driverManager.getDriver().findElement(addGitIgnoreButton()).click();
-        currentGitIgnoreTemplate = (WebElement) RandomUtils.getRandomElement(getTemplates());
+        addGitIgnoreButton.click();
+        WebElement currentGitIgnoreTemplate = (WebElement) RandomUtils.getRandomElement(getTemplates());
         currentGitIgnoreTemplate.click();
-        verifyGitIgnoreTemplateIsSet();
+        verifyGitIgnoreTemplateIsSet(currentGitIgnoreTemplate.getText());
         return this;
     }
 
     public void create() {
-        driverManager.getDriver().findElement(createRepositoryButton()).click();
+        createRepositoryButton.click();
     }
 
     private List<WebElement> getTemplates() {
-        return driverManager.getDriver().findElements(CreateRepositoryPageMap.templateDropDownItems());
+        return templateDropDownItems;
     }
 
-    private CreateRepositoryPage verifyGitIgnoreTemplateIsSet() {
-        if (!driverManager.getDriver().findElement(addGitIgnoreButtonSelectionText()).getText()
-                .contains(currentGitIgnoreTemplate.getText())) {
+    private CreateRepositoryPage verifyGitIgnoreTemplateIsSet(String templateText) {
+        if (!addGitIgnoreButtonSelectionText.getText().contains(templateText)) {
             throw new RuntimeException("Git Ignore template has not been set");
         }
         return this;

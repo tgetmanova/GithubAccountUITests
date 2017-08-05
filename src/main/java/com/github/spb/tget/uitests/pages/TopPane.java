@@ -3,17 +3,24 @@ package com.github.spb.tget.uitests.pages;
 import com.github.spb.tget.uitests.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-import static com.github.spb.tget.uitests.maps.elements.UserProfileDropDown.*;
-import static com.github.spb.tget.uitests.maps.elements.NewDropDown.*;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class TopPane {
 
-    private DriverManager driverManager;
+    @FindBy(css = "a[href=\"/new\"]")
+    private WebElement newDropDownLink;
 
-    public TopPane(WebDriver driver) {
-        driverManager = new DriverManager(driver);
-    }
+    @FindBy(linkText = "New repository")
+    private WebElement newRepositoryLink;
+
+    @FindBy(css = "img[alt=\"@githubTestUser191\"]")
+    private WebElement profileDropDownLink;
+
+    @FindBy(css = "a[href=\"/settings/profile\"]")
+    private WebElement settingsLink;
 
     private Boolean isUserProfileDropDownExpanded = false;
 
@@ -22,14 +29,25 @@ public class TopPane {
     private String topMenuDropDownCollapsedMessage = "\nCannot select items in drop-down as it is collapsed. " +
             "\nExpand the drop-down before selecting items in it.";
 
+    private DriverManager driverManager;
+
+    public TopPane(WebDriver driver) {
+        driverManager = new DriverManager(driver);
+        initElements(driver, this);
+    }
+
+    public WebElement getProfileDropDownLink() {
+        return profileDropDownLink;
+    }
+
     public TopPane expandUserProfileDropDown() {
-        driverManager.getDriver().findElement(profileDropDownLink()).click();
+        profileDropDownLink.click();
         isUserProfileDropDownExpanded = true;
         return this;
     }
 
     public TopPane expandNewDropDown() {
-        driverManager.getDriver().findElement(newDropDownLink()).click();
+        newDropDownLink.click();
         isNewDropDownExpanded = true;
         return this;
     }
@@ -38,7 +56,7 @@ public class TopPane {
         if (!isUserProfileDropDownExpanded) {
             throw new WebDriverException(topMenuDropDownCollapsedMessage);
         }
-        driverManager.getDriver().findElement(settingsLink()).click();
+        settingsLink.click();
         resetDropDownsState();
     }
 
@@ -46,7 +64,7 @@ public class TopPane {
         if (!isNewDropDownExpanded) {
             throw new WebDriverException(topMenuDropDownCollapsedMessage);
         }
-        driverManager.getDriver().findElement(newRepositoryLink()).click();
+        newRepositoryLink.click();
         resetDropDownsState();
     }
 

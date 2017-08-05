@@ -2,15 +2,21 @@ package com.github.spb.tget.uitests.pages;
 
 import com.github.spb.tget.uitests.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-import static com.github.spb.tget.uitests.maps.HomePageMap.*;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class HomePage extends Page {
+
+    @FindBy(css="a[href=\"/login\"]")
+    private WebElement signInLink;
 
     private DriverManager driverManager;
 
     public HomePage(WebDriver driver) {
         driverManager = new DriverManager(driver);
+        initElements(driver, this);
     }
 
     public String getUrl() {
@@ -22,6 +28,6 @@ public class HomePage extends Page {
     }
 
     public void clickSignIn() {
-        driverManager.getDriver().findElement(signInLink()).click();
+        signInLink.click();
     }
 }

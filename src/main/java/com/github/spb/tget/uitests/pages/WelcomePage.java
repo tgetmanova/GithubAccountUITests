@@ -3,14 +3,19 @@ package com.github.spb.tget.uitests.pages;
 import com.github.spb.tget.uitests.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 
-import static com.github.spb.tget.uitests.maps.elements.UserProfileDropDown.*;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class WelcomePage extends Page {
 
     private DriverManager driverManager;
 
+    private TopPane topPane;
+
     public WelcomePage(WebDriver driver) {
         driverManager = new DriverManager(driver);
+        initElements(driver, this);
+
+        topPane = new TopPane(driver);
     }
 
     public String getUrl() {
@@ -22,6 +27,6 @@ public class WelcomePage extends Page {
     }
 
     public Boolean isAt() {
-        return !driverManager.getDriver().findElements(profileDropDownLink()).isEmpty();
+        return driverManager.tryFindElementElseNull(topPane.getProfileDropDownLink()) != null;
     }
 }
