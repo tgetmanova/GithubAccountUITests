@@ -58,9 +58,8 @@ public class CreateRepositoryPage extends Page {
     }
 
     public CreateRepositoryPage withIsReadMeFileNeeded(Boolean isReadMeFileNeeded) {
-        if (isReadMeFileNeeded && !isReadMeFileNeededCheckbox.isSelected()) {
-            isReadMeFileNeededCheckbox.click();
-        } else if (!isReadMeFileNeeded && isReadMeFileNeededCheckbox.isSelected()) {
+        if ((isReadMeFileNeeded && !isReadMeFileNeededCheckbox.isSelected())
+            || (!isReadMeFileNeeded && isReadMeFileNeededCheckbox.isSelected())) {
             isReadMeFileNeededCheckbox.click();
         }
         return this;
