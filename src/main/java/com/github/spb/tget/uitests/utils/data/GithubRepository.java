@@ -4,6 +4,8 @@ public class GithubRepository {
     private int id;
     private String name;
     private String full_name;
+    private String description;
+
     private Owner owner;
 
     private class Owner {
@@ -32,5 +34,13 @@ public class GithubRepository {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
