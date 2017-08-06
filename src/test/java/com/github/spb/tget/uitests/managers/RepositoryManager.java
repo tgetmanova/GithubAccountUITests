@@ -3,7 +3,7 @@ package com.github.spb.tget.uitests.managers;
 import com.github.spb.tget.uitests.data.Repository;
 import com.github.spb.tget.uitests.pages.CreateRepositoryPage;
 import com.github.spb.tget.uitests.pages.PageFactory;
-import com.github.spb.tget.uitests.pages.RepositoryPage;
+import com.github.spb.tget.uitests.pages.repository.RepositoryPage;
 import com.github.spb.tget.uitests.pages.TopPane;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import com.github.spb.tget.uitests.utils.UserContext;
