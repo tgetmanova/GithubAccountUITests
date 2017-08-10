@@ -10,13 +10,13 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CreateRepositoryTest extends BaseTest {
+public class RepositoryTest extends BaseTest {
 
     private LoginManager loginManager;
 
     private RepositoryManager repositoryManager;
 
-    public CreateRepositoryTest() {
+    public RepositoryTest() {
         loginManager = new LoginManager(getDriver());
         repositoryManager = new RepositoryManager(getDriver());
     }
@@ -46,6 +46,20 @@ public class CreateRepositoryTest extends BaseTest {
         Assert.assertEquals("Description is not as expected",
                 expectedRepository.getDescription(),
                 actualRepository.getDescription());
+    }
+
+    @Test
+    public void canDeleteRepositoryFromRepositorySettingsWithPasswordConfirmation() {
+        String repositoryName = GithubApiUtils.createRepository();
+        loginManager.login();
+        repositoryManager.openProfileSettingsPage();
+        repositoryManager.openRepositorySettingsFromRepositoriesList(repositoryName);
+
+        repositoryManager.deleteRepositoryFromSettingsPage(repositoryName);
+
+        GithubRepository deletedRepoitoryName = GithubApiUtils.getRepository(repositoryName);
+        Assert.assertNull("Repository still can be derived by its name after attempt to delete it",
+                deletedRepoitoryName);
     }
 
     private Repository generateValidRepository() {

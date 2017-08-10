@@ -15,12 +15,48 @@ public class RepositorySettingsPage extends Page {
 
     private DriverManager driverManager;
 
+    private DeleteRepositoryModal deleteRepositoryModal;
+
     public RepositorySettingsPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
+        deleteRepositoryModal = new DeleteRepositoryModal(driver);
         initElements(driver, this);
     }
 
-    public void clickDeleteRepositoryButton(){
+    public RepositorySettingsPage clickDeleteRepositoryButton() {
         deleteButton.click();
+        return this;
+    }
+
+    public void confirmRepositoryNameInModal(String repositoryName){
+        deleteRepositoryModal.enterRepositoryName(repositoryName).confirm();
+    }
+
+    public Boolean isAt(String userName, String repositoryName) {
+        return driverManager.getDriver().getCurrentUrl()
+                .equals(String.format("%s/%s/%s/settings", getBaseUrl(), userName, repositoryName));
+    }
+
+    class DeleteRepositoryModal {
+
+        @FindBy(name = "verify")
+        private WebElement confirmRepositoryNameTextField;
+
+        @FindBy(xpath = "//button[contains(text(), 'I understand the consequences, delete this repository')]")
+        private WebElement confirmButton;
+
+        public DeleteRepositoryModal(WebDriver driver) {
+            initElements(driver, this);
+        }
+
+        DeleteRepositoryModal enterRepositoryName(String repositoryName) {
+            confirmRepositoryNameTextField.sendKeys(repositoryName);
+            return this;
+        }
+
+        DeleteRepositoryModal confirm() {
+            confirmButton.click();
+            return this;
+        }
     }
 }

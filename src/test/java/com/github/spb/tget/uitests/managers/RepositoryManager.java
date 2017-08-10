@@ -3,8 +3,12 @@ package com.github.spb.tget.uitests.managers;
 import com.github.spb.tget.uitests.data.Repository;
 import com.github.spb.tget.uitests.pages.CreateRepositoryPage;
 import com.github.spb.tget.uitests.pages.PageFactory;
+import com.github.spb.tget.uitests.pages.profile.ProfileSettingsPage;
+import com.github.spb.tget.uitests.pages.profile.RepositoriesPage;
+import com.github.spb.tget.uitests.pages.repository.RepositoryDeleteConfirmationPage;
 import com.github.spb.tget.uitests.pages.repository.RepositoryPage;
 import com.github.spb.tget.uitests.pages.TopPane;
+import com.github.spb.tget.uitests.pages.repository.RepositorySettingsPage;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import com.github.spb.tget.uitests.utils.UserContext;
 import org.junit.Assert;
@@ -13,10 +17,12 @@ import org.openqa.selenium.WebDriver;
 public class RepositoryManager {
 
     private TopPane topPane;
-
     private CreateRepositoryPage createRepositoryPage;
-
     private RepositoryPage repositoryPage;
+    private RepositorySettingsPage repositorySettingsPage;
+    private RepositoryDeleteConfirmationPage repositoryDeleteConfirmationPage;
+    private ProfileSettingsPage profileSettingsPage;
+    private RepositoriesPage repositoriesPage;
 
     private PageFactory pageFactory;
 
@@ -27,12 +33,24 @@ public class RepositoryManager {
 
         createRepositoryPage = (CreateRepositoryPage) pageFactory.createPage(CreateRepositoryPage.class);
         repositoryPage = (RepositoryPage) pageFactory.createPage(RepositoryPage.class);
+        repositorySettingsPage = (RepositorySettingsPage) pageFactory.createPage(RepositorySettingsPage.class);
+        repositoryDeleteConfirmationPage = (RepositoryDeleteConfirmationPage) pageFactory.createPage(RepositoryDeleteConfirmationPage.class);
+        profileSettingsPage = (ProfileSettingsPage) pageFactory.createPage(ProfileSettingsPage.class);
+        repositoriesPage = (RepositoriesPage) pageFactory.createPage(RepositoriesPage.class);
 
         topPane = new TopPane(driver);
     }
 
     public void openCreateRepositoryPage() {
         topPane.expandNewDropDown().selectNewRepositoryInDropDown();
+    }
+
+    public void openProfileSettingsPage() {topPane.expandUserProfileDropDown().selectSettingsInDropDown();}
+
+    public void openRepositorySettingsFromRepositoriesList(String repositoryName){
+        profileSettingsPage.clickRepositoriesLink();
+        repositoriesPage.clickRepositoryLink(repositoryName);
+        repositoryPage.clickRepositorySettingsLink(repositoryName);
     }
 
     public void createRepository() {
@@ -79,5 +97,16 @@ public class RepositoryManager {
             throw new IllegalStateException("currentRepositoryName has not been specified");
         }
         Assert.assertTrue(repositoryPage.isAt(UserContext.getLogin(), currentRepositoryName));
+    }
+
+    public void deleteRepositoryFromSettingsPage(String repositoryName) {
+        if (!repositorySettingsPage.isAt(UserContext.getLogin(), repositoryName)) {
+            throw new IllegalStateException("Delete repository action is available from " +
+                    "Repository Settings page. Please go to it first");
+        }
+        repositorySettingsPage.clickDeleteRepositoryButton()
+                .confirmRepositoryNameInModal(repositoryName);
+        repositoryDeleteConfirmationPage.withPassword(UserContext.getPassword())
+                .confirm();
     }
 }
