@@ -1,8 +1,11 @@
 package com.github.spb.tget.uitests.driver;
 
+import com.github.spb.tget.uitests.utils.ExecutionContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+
+import java.util.Collection;
 
 public class DriverManager {
 
@@ -21,12 +24,16 @@ public class DriverManager {
     }
 
     public void click(WebElement element) {
-        execute(() -> element.click());
+        execute(element::click);
+    }
+
+    public void sendInput(WebElement element, String input){
+        execute(() -> element.sendKeys(input));
     }
 
     public Boolean tryFindElementElseNull(WebElement element){
        try {
-           execute(() -> element.isDisplayed(), 3, 1000);
+           ExecutionContext.executeForSuccess(element::isDisplayed, 3, 1000);
            return true;
        }
        catch (WebDriverException driverException){
@@ -34,27 +41,12 @@ public class DriverManager {
        }
     }
 
-    private void execute(Runnable runnable){
-        execute(runnable, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
+    public void verifyElementsCollectionIsNotEmpty(Collection<WebElement> collection){
+        ExecutionContext.executeForCondition(() -> !collection.isEmpty(),
+                defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
     }
 
-    private void execute(Runnable runnable, int waitAttemptsCount, long waitIntervalInMillis) {
-        String message = "";
-
-        for (int i = 0; i < waitAttemptsCount; i++) {
-            try {
-                runnable.run();
-                return;
-            } catch (WebDriverException exception) {
-                message = exception.getMessage();
-            }
-            try {
-                Thread.sleep(waitIntervalInMillis);
-            } catch (InterruptedException exception) {
-                throw new RuntimeException(exception);
-            }
-        }
-
-        throw new WebDriverException(message);
+    private void execute(Runnable runnable){
+        ExecutionContext.executeForSuccess(runnable, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
     }
 }

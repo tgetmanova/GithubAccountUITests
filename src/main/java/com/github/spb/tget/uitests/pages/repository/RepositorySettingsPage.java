@@ -2,8 +2,7 @@ package com.github.spb.tget.uitests.pages.repository;
 
 import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 import static org.openqa.selenium.support.PageFactory.initElements;
@@ -24,11 +23,11 @@ public class RepositorySettingsPage extends Page {
     }
 
     public RepositorySettingsPage clickDeleteRepositoryButton() {
-        deleteButton.click();
+        driverManager.click(deleteButton);
         return this;
     }
 
-    public void confirmRepositoryNameInModal(String repositoryName){
+    public void confirmRepositoryNameInModal(String repositoryName) {
         deleteRepositoryModal.enterRepositoryName(repositoryName).confirm();
     }
 
@@ -39,10 +38,10 @@ public class RepositorySettingsPage extends Page {
 
     class DeleteRepositoryModal {
 
-        @FindBy(name = "verify")
+        @FindBy(xpath = "//*[@id=\"facebox\"]/div/div/form/p/input")
         private WebElement confirmRepositoryNameTextField;
 
-        @FindBy(xpath = "//button[contains(text(), 'I understand the consequences, delete this repository')]")
+        @FindBy(xpath = "//*[@id=\"facebox\"]/div/div/form/button")
         private WebElement confirmButton;
 
         public DeleteRepositoryModal(WebDriver driver) {
@@ -50,12 +49,12 @@ public class RepositorySettingsPage extends Page {
         }
 
         DeleteRepositoryModal enterRepositoryName(String repositoryName) {
-            confirmRepositoryNameTextField.sendKeys(repositoryName);
+            driverManager.sendInput(confirmRepositoryNameTextField, repositoryName);
             return this;
         }
 
         DeleteRepositoryModal confirm() {
-            confirmButton.click();
+            driverManager.click(deleteButton);
             return this;
         }
     }

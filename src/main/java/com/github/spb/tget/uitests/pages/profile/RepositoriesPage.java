@@ -25,6 +25,7 @@ public class RepositoriesPage extends Page {
     }
 
     public void clickRepositoryLink(String repositoryName) {
+        driverManager.verifyElementsCollectionIsNotEmpty(repositoriesLinks());
         WebElement targetRepository = repositoriesLinks().stream()
                 .filter(i -> i.getText().contains(repositoryName))
                 .findFirst().orElse(null);

@@ -72,7 +72,7 @@ public class RepositoryTest extends BaseTest {
     @AfterClass
     public static void CleanupRepositories() {
         GithubApiUtils.getRepositories().stream()
-                .map(rep -> rep.getName())
-                .forEach(n -> GithubApiUtils.deleteRepository(n));
+                .map(GithubRepository::getName)
+                .forEach(GithubApiUtils::deleteRepository);
     }
 }

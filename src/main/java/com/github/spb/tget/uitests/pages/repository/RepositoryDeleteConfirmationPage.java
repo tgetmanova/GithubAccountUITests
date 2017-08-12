@@ -1,5 +1,6 @@
 package com.github.spb.tget.uitests.pages.repository;
 
+import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,17 +16,20 @@ public class RepositoryDeleteConfirmationPage extends Page {
     @FindBy(xpath = "//button[contains(text(), 'Confirm password')]")
     private WebElement confirmPasswordButton;
 
+    private DriverManager driverManager;
+
     public RepositoryDeleteConfirmationPage(WebDriver driver) {
         initElements(driver, this);
+        driverManager = new DriverManager(driver);
     }
 
-    public RepositoryDeleteConfirmationPage withPassword(String password){
-        passwordField.sendKeys(password);
+    public RepositoryDeleteConfirmationPage withPassword(String password) {
+        driverManager.sendInput(passwordField, password);
         return this;
     }
 
-    public RepositoryDeleteConfirmationPage confirm(){
-        confirmPasswordButton.click();
+    public RepositoryDeleteConfirmationPage confirm() {
+        driverManager.click(confirmPasswordButton);
         return this;
     }
 }
