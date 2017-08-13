@@ -1,7 +1,7 @@
 package com.github.spb.tget.uitests.managers;
 
 import com.github.spb.tget.uitests.data.Repository;
-import com.github.spb.tget.uitests.pages.CreateRepositoryPage;
+import com.github.spb.tget.uitests.pages.repository.CreateRepositoryPage;
 import com.github.spb.tget.uitests.pages.PageFactory;
 import com.github.spb.tget.uitests.pages.profile.ProfileSettingsPage;
 import com.github.spb.tget.uitests.pages.profile.RepositoriesPage;
@@ -41,14 +41,10 @@ public class RepositoryManager {
         topPane = new TopPane(driver);
     }
 
-    public void openCreateRepositoryPage() {
-        topPane.expandNewDropDown().selectNewRepositoryInDropDown();
-    }
 
-    public void openProfileSettingsPage() {topPane.expandUserProfileDropDown().selectSettingsInDropDown();}
 
     public void openRepositorySettingsFromRepositoriesList(String repositoryName){
-        profileSettingsPage.clickRepositoriesLink();
+        profileSettingsPage.openRepositoriesPage();
         repositoriesPage.clickRepositoryLink(repositoryName);
         repositoryPage.clickRepositorySettingsLink(repositoryName);
     }

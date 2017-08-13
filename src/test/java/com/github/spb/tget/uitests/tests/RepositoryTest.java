@@ -3,6 +3,7 @@ package com.github.spb.tget.uitests.tests;
 import com.github.spb.tget.uitests.data.Repository;
 import com.github.spb.tget.uitests.managers.LoginManager;
 import com.github.spb.tget.uitests.managers.RepositoryManager;
+import com.github.spb.tget.uitests.managers.TopMenuManager;
 import com.github.spb.tget.uitests.utils.GithubApiUtils;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import com.github.spb.tget.uitests.utils.data.GithubRepository;
@@ -16,15 +17,18 @@ public class RepositoryTest extends BaseTest {
 
     private RepositoryManager repositoryManager;
 
+    private TopMenuManager topMenuManager;
+
     public RepositoryTest() {
         loginManager = new LoginManager(getDriver());
         repositoryManager = new RepositoryManager(getDriver());
+        topMenuManager = new TopMenuManager(getDriver());
     }
 
     @Test
     public void createRepositoryShouldRedirectToRepositoryPage() {
         loginManager.login();
-        repositoryManager.openCreateRepositoryPage();
+        topMenuManager.openCreateRepositoryPage();
         repositoryManager.verifyIsOnCreateRepositoryPage();
 
         repositoryManager.createRepository();
@@ -35,7 +39,7 @@ public class RepositoryTest extends BaseTest {
     @Test
     public void createRepositoryShouldCreateRepositoryWithCorrectSettings() {
         loginManager.login();
-        repositoryManager.openCreateRepositoryPage();
+        topMenuManager.openCreateRepositoryPage();
         repositoryManager.verifyIsOnCreateRepositoryPage();
 
         Repository expectedRepository = generateValidRepository();
@@ -52,7 +56,7 @@ public class RepositoryTest extends BaseTest {
     public void canDeleteRepositoryFromRepositorySettingsWithPasswordConfirmation() {
         String repositoryName = GithubApiUtils.createRepository();
         loginManager.login();
-        repositoryManager.openProfileSettingsPage();
+        topMenuManager.openProfileSettingsPage();
         repositoryManager.openRepositorySettingsFromRepositoriesList(repositoryName);
 
         repositoryManager.deleteRepositoryFromSettingsPage(repositoryName);

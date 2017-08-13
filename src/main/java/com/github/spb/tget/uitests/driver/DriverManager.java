@@ -27,26 +27,29 @@ public class DriverManager {
         execute(element::click);
     }
 
-    public void sendInput(WebElement element, String input){
+    public void sendInput(WebElement element, String input) {
         execute(() -> element.sendKeys(input));
     }
 
-    public Boolean tryFindElementElseNull(WebElement element){
-       try {
-           ExecutionContext.executeForSuccess(element::isDisplayed, 3, 1000);
-           return true;
-       }
-       catch (WebDriverException driverException){
-           return null;
-       }
+    public Boolean tryFindElementElseNull(WebElement element) {
+        try {
+            ExecutionContext.executeForSuccess(element::isDisplayed, 3, 1000);
+            return true;
+        } catch (WebDriverException driverException) {
+            return null;
+        }
     }
 
-    public void verifyElementsCollectionIsNotEmpty(Collection<WebElement> collection){
+    public void verifyElementsCollectionIsNotEmpty(Collection<WebElement> collection) {
         ExecutionContext.executeForCondition(() -> !collection.isEmpty(),
                 defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
     }
 
-    private void execute(Runnable runnable){
+    public void verifyElementExists(WebElement element) {
+        ExecutionContext.executeForSuccess(element::isDisplayed, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
+    }
+
+    private void execute(Runnable runnable) {
         ExecutionContext.executeForSuccess(runnable, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
     }
 }

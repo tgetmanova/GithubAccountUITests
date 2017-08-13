@@ -1,6 +1,7 @@
-package com.github.spb.tget.uitests.pages;
+package com.github.spb.tget.uitests.pages.repository;
 
 import com.github.spb.tget.uitests.driver.DriverManager;
+import com.github.spb.tget.uitests.pages.Page;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
