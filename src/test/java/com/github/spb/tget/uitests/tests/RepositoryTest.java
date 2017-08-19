@@ -4,7 +4,7 @@ import com.github.spb.tget.uitests.data.Repository;
 import com.github.spb.tget.uitests.managers.LoginManager;
 import com.github.spb.tget.uitests.managers.RepositoryManager;
 import com.github.spb.tget.uitests.managers.TopMenuManager;
-import com.github.spb.tget.uitests.utils.GithubApiUtils;
+import com.github.spb.tget.uitests.utils.GithubApiUtils.RepositoryApiUtils;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import com.github.spb.tget.uitests.utils.data.GithubRepository;
 import org.junit.AfterClass;
@@ -45,7 +45,7 @@ public class RepositoryTest extends BaseTest {
         Repository expectedRepository = generateValidRepository();
         repositoryManager.createRepository(expectedRepository);
 
-        GithubRepository actualRepository = GithubApiUtils.getRepository(expectedRepository.getName());
+        GithubRepository actualRepository = RepositoryApiUtils.getRepository(expectedRepository.getName());
         Assert.assertNotNull("Failed to derived newly created repository by expected name", actualRepository);
         Assert.assertEquals("Description is not as expected",
                 expectedRepository.getDescription(),
@@ -54,14 +54,14 @@ public class RepositoryTest extends BaseTest {
 
     @Test
     public void canDeleteRepositoryFromRepositorySettingsWithPasswordConfirmation() {
-        String repositoryName = GithubApiUtils.createRepository();
+        String repositoryName = RepositoryApiUtils.createRepository();
         loginManager.login();
         topMenuManager.openProfileSettingsPage();
         repositoryManager.openRepositorySettingsFromRepositoriesList(repositoryName);
 
         repositoryManager.deleteRepositoryFromSettingsPage(repositoryName);
 
-        GithubRepository deletedRepoitoryName = GithubApiUtils.getRepository(repositoryName);
+        GithubRepository deletedRepoitoryName = RepositoryApiUtils.getRepository(repositoryName);
         Assert.assertNull("Repository still can be derived by its name after attempt to delete it",
                 deletedRepoitoryName);
     }
@@ -75,8 +75,8 @@ public class RepositoryTest extends BaseTest {
 
     @AfterClass
     public static void CleanupRepositories() {
-        GithubApiUtils.getRepositories().stream()
+        RepositoryApiUtils.getRepositories().stream()
                 .map(GithubRepository::getName)
-                .forEach(GithubApiUtils::deleteRepository);
+                .forEach(RepositoryApiUtils::deleteRepository);
     }
 }
