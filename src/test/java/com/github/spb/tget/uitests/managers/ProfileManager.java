@@ -16,7 +16,11 @@ public class ProfileManager {
         profileSettingsPage = (ProfileSettingsPage) pageFactory.createPage(ProfileSettingsPage.class);
     }
 
-    public void goToKeysPage(){
+    public void goToKeysPage() {
         profileSettingsPage.openKeysPage();
+    }
+
+    public void gotToEmailsPage() {
+        profileSettingsPage.openEmailsPage();
     }
 }
