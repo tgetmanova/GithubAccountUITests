@@ -12,6 +12,9 @@ public class HomePage extends Page {
     @FindBy(css="a[href=\"/login\"]")
     private WebElement signInLink;
 
+    @FindBy(xpath = "/html/body/div[1]/header/div/button")
+    private WebElement topPaneItemsButton;
+
     private DriverManager driverManager;
 
     public HomePage(WebDriver driver) {
@@ -28,6 +31,10 @@ public class HomePage extends Page {
     }
 
     public void clickSignIn() {
+        if(!signInLink.isDisplayed()){
+            topPaneItemsButton.click();
+        }
+
         signInLink.click();
     }
 }
