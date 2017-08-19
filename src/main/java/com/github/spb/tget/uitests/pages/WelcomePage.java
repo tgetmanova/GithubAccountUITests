@@ -18,15 +18,16 @@ public class WelcomePage extends Page {
         topPane = new TopPane(driver);
     }
 
-    public String getUrl() {
-        return getBaseUrl();
-    }
-
     public void goTo() {
         driverManager.getDriver().navigate().to(getUrl());
     }
 
     public Boolean isAt() {
         return driverManager.tryFindElementElseNull(topPane.getProfileDropDownLink()) != null;
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl();
     }
 }

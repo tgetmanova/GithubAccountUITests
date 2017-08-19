@@ -45,7 +45,7 @@ public class CreateRepositoryPage extends Page {
     }
 
     public Boolean isAt() {
-        return driverManager.getDriver().getCurrentUrl().equals("https://github.com/new");
+        return driverManager.getDriver().getCurrentUrl().equals(getUrl());
     }
 
     public CreateRepositoryPage withRepositoryName(String repositoryName) {
@@ -99,5 +99,10 @@ public class CreateRepositoryPage extends Page {
             throw new RuntimeException("Git Ignore template has not been set");
         }
         return this;
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl() + "/new";
     }
 }

@@ -22,10 +22,6 @@ public class HomePage extends Page {
         initElements(driver, this);
     }
 
-    public String getUrl() {
-        return getBaseUrl();
-    }
-
     public void goTo() {
         driverManager.getDriver().navigate().to(getUrl());
     }
@@ -36,5 +32,10 @@ public class HomePage extends Page {
         }
 
         signInLink.click();
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl();
     }
 }

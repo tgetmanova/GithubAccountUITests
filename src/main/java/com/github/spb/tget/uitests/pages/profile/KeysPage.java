@@ -32,7 +32,7 @@ public class KeysPage extends Page {
     }
 
     public Boolean isAt(){
-        return driverManager.getDriver().getCurrentUrl().equals(getBaseUrl() + "/settings/keys");
+        return driverManager.getDriver().getCurrentUrl().equals(getUrl());
     }
 
     public KeysPage expandSshKeyCreationForm() {
@@ -59,5 +59,10 @@ public class KeysPage extends Page {
 
     private Boolean isSshKeyBeingAdded() {
         return addSshKeyButton.isDisplayed();
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl() + "/settings/keys";
     }
 }

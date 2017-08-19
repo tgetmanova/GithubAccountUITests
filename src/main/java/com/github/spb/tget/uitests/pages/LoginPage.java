@@ -8,6 +8,7 @@ import org.openqa.selenium.support.*;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class LoginPage extends Page {
+
     @FindBy(id = "login_field")
     private WebElement loginField;
 
@@ -24,10 +25,6 @@ public class LoginPage extends Page {
         initElements(driver, this);
     }
 
-    public String getUrl() {
-        return getBaseUrl() + "/login";
-    }
-
     public LoginPage withLogin(String login) {
         loginField.sendKeys(login);
         return this;
@@ -40,5 +37,10 @@ public class LoginPage extends Page {
 
     public void submit() {
         driverManager.click(signInField);
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl() + "/login";
     }
 }

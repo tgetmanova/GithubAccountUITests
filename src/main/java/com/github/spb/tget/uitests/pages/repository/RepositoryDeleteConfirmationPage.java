@@ -32,4 +32,14 @@ public class RepositoryDeleteConfirmationPage extends Page {
         driverManager.click(confirmPasswordButton);
         return this;
     }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        int expectedUrlParamsNumber = 2;
+        if (urlParams.length != expectedUrlParamsNumber) {
+            throw new IllegalArgumentException(expectedUrlParamsNumber + " URL params number expected for the Page: "
+                    + this.getClass().getSimpleName());
+        }
+        return getBaseUrl() + "/" + urlParams[0] + "/" + urlParams[1] + "/settings/delete";
+    }
 }

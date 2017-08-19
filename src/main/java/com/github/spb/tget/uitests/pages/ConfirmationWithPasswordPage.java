@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.openqa.selenium.support.PageFactory.initElements;
 
-public class ConfirmationWithPasswordPage extends Page{
+public abstract class ConfirmationWithPasswordPage extends Page{
 
     @FindBy(id = "sudo_password")
     private WebElement passwordField;
@@ -31,4 +31,6 @@ public class ConfirmationWithPasswordPage extends Page{
         driverManager.click(confirmPasswordButton);
         return this;
     }
+
+    public abstract String getUrl();
 }

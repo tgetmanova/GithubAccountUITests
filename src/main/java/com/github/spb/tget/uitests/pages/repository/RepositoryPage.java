@@ -20,7 +20,7 @@ public class RepositoryPage extends Page {
 
     public Boolean isAt(String userName, String repositoryName) {
         return driverManager.getDriver().getCurrentUrl()
-                .equals(String.format("%s/%s/%s", getBaseUrl(), userName, repositoryName));
+                .equals(getUrl(userName, repositoryName));
     }
 
     public void clickRepositorySettingsLink(String repositoryName){
@@ -30,5 +30,15 @@ public class RepositoryPage extends Page {
     private WebElement repositorySettingsLink(String repositoryName) {
         return driverManager.getDriver().findElement(
                 By.cssSelector(String.format("a[href=\"/%s/%s/settings\"]", UserContext.getLogin(), repositoryName)));
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        int expectedUrlParamsNumber = 2;
+        if (urlParams.length != expectedUrlParamsNumber) {
+            throw new IllegalArgumentException(expectedUrlParamsNumber + " URL params number expected for the Page: "
+                    + this.getClass().getSimpleName());
+        }
+        return getBaseUrl() + "/" + urlParams[0] + "/" + urlParams[1];
     }
 }

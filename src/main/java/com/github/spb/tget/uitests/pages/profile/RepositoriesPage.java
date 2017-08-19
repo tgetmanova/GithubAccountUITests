@@ -20,10 +20,6 @@ public class RepositoriesPage extends Page {
         driverManager = new DriverManager(driver);
     }
 
-    public String getUrl() {
-        return getBaseUrl() + "/settings/repositories";
-    }
-
     public void clickRepositoryLink(String repositoryName) {
         driverManager.verifyElementsCollectionIsNotEmpty(repositoriesLinks());
         WebElement targetRepository = repositoriesLinks().stream()
@@ -37,5 +33,10 @@ public class RepositoriesPage extends Page {
 
     private List<WebElement> repositoriesLinks() {
         return driverManager.getDriver().findElements(By.xpath(String.format("//a[contains(text(),'%s')]", UserContext.getLogin())));
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl() + "/settings/repositories";
     }
 }

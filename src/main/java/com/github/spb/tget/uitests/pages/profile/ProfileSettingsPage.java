@@ -29,15 +29,11 @@ public class ProfileSettingsPage extends Page {
         initElements(driver, this);
     }
 
-    public String getUrl() {
-        return getBaseUrl() + "/settings/profile";
-    }
-
     public void openRepositoriesPage() {
         repositoriesLink.click();
     }
 
-    public void openEmailPage() {
+    public void openEmailsPage() {
         emailsLink.click();
     }
 
@@ -47,5 +43,10 @@ public class ProfileSettingsPage extends Page {
 
     public void openRepliesLink(){
         repliesLink.click();
+    }
+
+    @Override
+    public String getUrl(String... urlParams) {
+        return getBaseUrl() + "/settings/profile";
     }
 }
