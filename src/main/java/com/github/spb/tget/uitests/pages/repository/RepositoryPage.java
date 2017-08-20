@@ -6,13 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class RepositoryPage extends Page {
 
     public RepositoryPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public Boolean isAt(String userName, String repositoryName) {

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class EmailsPage extends Page {
 
     @FindBy(id = "email")
@@ -20,7 +18,6 @@ public class EmailsPage extends Page {
 
     public EmailsPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public void enterEmailAddress(String email){

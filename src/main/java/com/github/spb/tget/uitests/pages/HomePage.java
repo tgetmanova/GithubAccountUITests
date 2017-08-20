@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class HomePage extends Page {
 
     @FindBy(css="a[href=\"/login\"]")
@@ -16,7 +14,6 @@ public class HomePage extends Page {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public void goTo() {

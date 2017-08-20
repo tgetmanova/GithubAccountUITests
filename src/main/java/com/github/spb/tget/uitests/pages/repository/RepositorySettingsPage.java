@@ -16,7 +16,6 @@ public class RepositorySettingsPage extends Page {
     public RepositorySettingsPage(WebDriver driver) {
         super(driver);
         deleteRepositoryModal = new DeleteRepositoryModal(driver);
-        initElements(driver, this);
     }
 
     public RepositorySettingsPage clickDeleteRepositoryButton() {

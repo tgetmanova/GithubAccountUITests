@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class KeysPage extends Page {
 
     @FindBy(id = "add_key_action")
@@ -25,7 +23,6 @@ public class KeysPage extends Page {
 
     public KeysPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public Boolean isAt(){

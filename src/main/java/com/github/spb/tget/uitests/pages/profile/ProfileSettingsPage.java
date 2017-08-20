@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class ProfileSettingsPage extends Page {
 
     @FindBy(css = "a[href=\"/settings/repositories\"]")
@@ -23,7 +21,6 @@ public class ProfileSettingsPage extends Page {
 
     public ProfileSettingsPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public void openRepositoriesPage() {

@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class CreateRepositoryPage extends Page {
 
     @FindBy(id = "repository_name")
@@ -38,7 +36,6 @@ public class CreateRepositoryPage extends Page {
 
     public CreateRepositoryPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public Boolean isAt() {

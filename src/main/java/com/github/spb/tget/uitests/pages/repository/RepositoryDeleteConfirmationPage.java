@@ -3,13 +3,10 @@ package com.github.spb.tget.uitests.pages.repository;
 import com.github.spb.tget.uitests.pages.ConfirmationWithPasswordPage;
 import org.openqa.selenium.WebDriver;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class RepositoryDeleteConfirmationPage extends ConfirmationWithPasswordPage {
 
     public RepositoryDeleteConfirmationPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     @Override

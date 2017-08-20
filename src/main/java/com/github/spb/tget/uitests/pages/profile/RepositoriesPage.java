@@ -8,13 +8,10 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class RepositoriesPage extends Page {
 
     public RepositoriesPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
     }
 
     public void clickRepositoryLink(String repositoryName) {

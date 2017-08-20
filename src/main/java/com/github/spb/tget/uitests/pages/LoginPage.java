@@ -19,7 +19,7 @@ public class LoginPage extends Page {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        initElements(driver, this);
+       // initElements(driver, this);
     }
 
     public LoginPage withLogin(String login) {
