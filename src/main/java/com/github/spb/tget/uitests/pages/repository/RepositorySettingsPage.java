@@ -12,8 +12,6 @@ public class RepositorySettingsPage extends Page {
     @FindBy(xpath = "//button[contains(text(),'Delete this repository')]")
     private WebElement deleteButton;
 
-    private DriverManager driverManager;
-
     private DeleteRepositoryModal deleteRepositoryModal;
 
     public RepositorySettingsPage(WebDriver driver) {

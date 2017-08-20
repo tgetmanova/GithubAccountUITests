@@ -24,8 +24,6 @@ public class KeysPage extends Page {
 
     private WebElement sshKeyHeader;
 
-    private DriverManager driverManager;
-
     public KeysPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

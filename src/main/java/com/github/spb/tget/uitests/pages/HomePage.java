@@ -15,8 +15,6 @@ public class HomePage extends Page {
     @FindBy(xpath = "/html/body/div[1]/header/div/button")
     private WebElement topPaneItemsButton;
 
-    private DriverManager driverManager;
-
     public HomePage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

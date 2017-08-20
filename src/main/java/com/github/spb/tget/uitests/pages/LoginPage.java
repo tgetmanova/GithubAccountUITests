@@ -18,8 +18,6 @@ public class LoginPage extends Page {
     @FindBy(name = "commit")
     private WebElement signInField;
 
-    private DriverManager driverManager;
-
     public LoginPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

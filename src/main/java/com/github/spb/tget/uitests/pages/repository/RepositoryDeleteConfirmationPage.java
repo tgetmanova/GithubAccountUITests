@@ -16,8 +16,6 @@ public class RepositoryDeleteConfirmationPage extends Page {
     @FindBy(xpath = "//button[contains(text(), 'Confirm password')]")
     private WebElement confirmPasswordButton;
 
-    private DriverManager driverManager;
-
     public RepositoryDeleteConfirmationPage(WebDriver driver) {
         initElements(driver, this);
         driverManager = new DriverManager(driver);

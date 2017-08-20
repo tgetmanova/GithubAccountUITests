@@ -11,8 +11,6 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class RepositoryPage extends Page {
 
-    private DriverManager driverManager;
-
     public RepositoryPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

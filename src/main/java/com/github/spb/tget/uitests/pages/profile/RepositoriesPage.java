@@ -13,8 +13,6 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class RepositoriesPage extends Page {
 
-    private DriverManager driverManager;
-
     public RepositoriesPage(WebDriver driver) {
         initElements(driver, this);
         driverManager = new DriverManager(driver);

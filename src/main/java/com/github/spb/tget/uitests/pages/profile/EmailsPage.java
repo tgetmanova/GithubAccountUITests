@@ -19,8 +19,6 @@ public class EmailsPage extends Page {
     @FindBy(id = "js-flash-container")
     private WebElement emailAddedNotificationPane;
 
-    private DriverManager driverManager;
-
     public EmailsPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

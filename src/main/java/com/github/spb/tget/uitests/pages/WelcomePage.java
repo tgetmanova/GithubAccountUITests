@@ -7,8 +7,6 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class WelcomePage extends Page {
 
-    private DriverManager driverManager;
-
     private TopPane topPane;
 
     public WelcomePage(WebDriver driver) {

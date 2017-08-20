@@ -37,8 +37,6 @@ public class CreateRepositoryPage extends Page {
     @FindBy(css = "span[class=\"js-select-button\"]")
     private WebElement addGitIgnoreButtonSelectionText;
 
-    private DriverManager driverManager;
-
     public CreateRepositoryPage(WebDriver driver) {
         driverManager = new DriverManager(driver);
         initElements(driver, this);

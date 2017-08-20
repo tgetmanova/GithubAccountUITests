@@ -10,8 +10,6 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class ProfileSettingsPage extends Page {
 
-    private DriverManager driverManager;
-
     @FindBy(css = "a[href=\"/settings/repositories\"]")
     private WebElement repositoriesLink;
 
