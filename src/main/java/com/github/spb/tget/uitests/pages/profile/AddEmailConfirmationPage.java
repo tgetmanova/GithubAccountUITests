@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages.profile;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.ConfirmationWithPasswordPage;
 import com.github.spb.tget.uitests.utils.UserContext;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +9,7 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 public class AddEmailConfirmationPage extends ConfirmationWithPasswordPage {
 
     public AddEmailConfirmationPage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         initElements(driver, this);
     }
 

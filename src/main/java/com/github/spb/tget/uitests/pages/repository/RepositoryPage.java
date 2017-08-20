@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages.repository;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
 import com.github.spb.tget.uitests.utils.UserContext;
 import org.openqa.selenium.By;
@@ -12,7 +11,7 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 public class RepositoryPage extends Page {
 
     public RepositoryPage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         initElements(driver, this);
     }
 

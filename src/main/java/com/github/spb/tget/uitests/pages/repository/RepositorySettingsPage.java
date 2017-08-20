@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages.repository;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +14,7 @@ public class RepositorySettingsPage extends Page {
     private DeleteRepositoryModal deleteRepositoryModal;
 
     public RepositorySettingsPage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         deleteRepositoryModal = new DeleteRepositoryModal(driver);
         initElements(driver, this);
     }
@@ -52,7 +51,7 @@ public class RepositorySettingsPage extends Page {
         @FindBy(xpath = "//*[@id=\"facebox\"]/div/div/form/button")
         private WebElement confirmButton;
 
-        public DeleteRepositoryModal(WebDriver driver) {
+        DeleteRepositoryModal(WebDriver driver) {
             initElements(driver, this);
         }
 
@@ -61,9 +60,8 @@ public class RepositorySettingsPage extends Page {
             return this;
         }
 
-        DeleteRepositoryModal confirm() {
+        void confirm() {
             driverManager.click(deleteButton);
-            return this;
         }
     }
 }

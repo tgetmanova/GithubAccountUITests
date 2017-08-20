@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +15,7 @@ public class HomePage extends Page {
     private WebElement topPaneItemsButton;
 
     public HomePage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         initElements(driver, this);
     }
 

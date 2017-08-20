@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages.repository;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
 import com.github.spb.tget.uitests.utils.RandomUtils;
 import org.openqa.selenium.WebDriver;
@@ -38,7 +37,7 @@ public class CreateRepositoryPage extends Page {
     private WebElement addGitIgnoreButtonSelectionText;
 
     public CreateRepositoryPage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         initElements(driver, this);
     }
 
@@ -92,11 +91,10 @@ public class CreateRepositoryPage extends Page {
         return templateDropDownItems;
     }
 
-    private CreateRepositoryPage verifyGitIgnoreTemplateIsSet(String templateText) {
+    private void verifyGitIgnoreTemplateIsSet(String templateText) {
         if (!addGitIgnoreButtonSelectionText.getText().contains(templateText)) {
             throw new RuntimeException("Git Ignore template has not been set");
         }
-        return this;
     }
 
     @Override

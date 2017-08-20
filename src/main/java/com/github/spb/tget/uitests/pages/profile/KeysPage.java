@@ -1,6 +1,5 @@
 package com.github.spb.tget.uitests.pages.profile;
 
-import com.github.spb.tget.uitests.driver.DriverManager;
 import com.github.spb.tget.uitests.pages.Page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +24,7 @@ public class KeysPage extends Page {
     private WebElement sshKeyHeader;
 
     public KeysPage(WebDriver driver) {
-        driverManager = new DriverManager(driver);
+        super(driver);
         initElements(driver, this);
     }
 
