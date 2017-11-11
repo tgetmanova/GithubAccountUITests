@@ -9,7 +9,7 @@ public class HomePage extends Page {
     @FindBy(css="a[href=\"/login\"]")
     private WebElement signInLink;
 
-    @FindBy(xpath = "/html/body/div[1]/header/div/button")
+    @FindBy(xpath = "/html/body/div[1]/header/div/div[1]/button")
     private WebElement topPaneItemsButton;
 
     public HomePage(WebDriver driver) {
