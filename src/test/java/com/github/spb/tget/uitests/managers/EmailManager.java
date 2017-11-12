@@ -6,7 +6,7 @@ import com.github.spb.tget.uitests.pages.profile.EmailsPage;
 import com.github.spb.tget.uitests.utils.UserContext;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.openqa.selenium.WebElement;
 
 public class EmailManager {
     private PageFactory pageFactory;
@@ -20,20 +20,34 @@ public class EmailManager {
         addEmailConfirmationPage = (AddEmailConfirmationPage) pageFactory.createPage(AddEmailConfirmationPage.class);
     }
 
-    public void submitNewEmailAddress(String emailAddress){
+    public void submitNewEmailAddress(String emailAddress) {
         emailsPage.enterEmailAddress(emailAddress);
         emailsPage.clickAddEmailAddress();
-        if (!emailsPage.isEmailAddedNotificationDisplayed()){
+        if (!emailsPage.isEmailAddedNotificationDisplayed()) {
             addEmailConfirmationPage.withPassword(UserContext.getPassword()).confirm();
         }
     }
 
-    public void verifyEmailAddressAddedNotificationIsDisplayed(){
+    public void verifyEmailAddressAddedNotificationIsDisplayed() {
         Assert.assertTrue("Notification about email added is not displayed",
                 emailsPage.isEmailAddedNotificationDisplayed());
     }
 
-    public void verifyEmailIsInTheList(String email) {
-        throw new NotImplementedException();
+    public void removeEmailAddress(String emailAddressToRemove) {
+        // TODO implement
+        WebElement elementToClickDelete = getEmailAddressListItem(emailAddressToRemove);
+    }
+
+    public void verifyEmailAddressIsInTheList(String emailAddress) {
+        Assert.assertNotNull("Failed to find newly added email address in the list",
+                getEmailAddressListItem(emailAddress));
+    }
+
+    private WebElement getEmailAddressListItem(String emailAddress) {
+        return emailsPage.getEmailAddressesListItems()
+                .stream()
+                .filter(ea -> ea.getText().contains(emailAddress))
+                .findFirst()
+                .orElse(null);
     }
 }

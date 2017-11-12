@@ -46,7 +46,7 @@ public class EmailTest extends BaseTest {
         String email = RandomUtils.getRandomEmailAddress();
         emailManager.submitNewEmailAddress(email);
 
-        emailManager.verifyEmailIsInTheList(email);
+        emailManager.verifyEmailAddressIsInTheList(email);
     }
 
     @AfterClass
