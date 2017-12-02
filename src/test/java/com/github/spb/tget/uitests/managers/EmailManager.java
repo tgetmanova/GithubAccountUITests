@@ -3,6 +3,7 @@ package com.github.spb.tget.uitests.managers;
 import com.github.spb.tget.uitests.pages.PageFactory;
 import com.github.spb.tget.uitests.pages.profile.AddEmailConfirmationPage;
 import com.github.spb.tget.uitests.pages.profile.EmailsPage;
+import com.github.spb.tget.uitests.utils.GithubApiUtils.EmailApiUtils;
 import com.github.spb.tget.uitests.utils.UserContext;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -34,8 +35,8 @@ public class EmailManager {
     }
 
     public void removeEmailAddress(String emailAddressToRemove) {
-        // TODO implement
-        WebElement elementToClickDelete = getEmailAddressListItem(emailAddressToRemove);
+        emailsPage.clickDeleteButtonForEmailAddress(emailAddressToRemove);
+        emailsPage.confirmPageAction();
     }
 
     public void verifyEmailAddressIsInTheList(String emailAddress) {
@@ -49,5 +50,13 @@ public class EmailManager {
                 .filter(ea -> ea.getText().contains(emailAddress))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void verifyEmailAddressDoesNotExist(String emailAddress) {
+        Assert.assertNull("Email Address is still in the list", EmailApiUtils.getEmail(emailAddress));
+    }
+
+    public void verifyEmailAddressExists(String emailAddress) {
+        Assert.assertNotNull("Cannot derive newly created email address", EmailApiUtils.getEmail(emailAddress));
     }
 }

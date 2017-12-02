@@ -19,4 +19,8 @@ public abstract class Page {
     }
 
     public abstract String getUrl(String... urlParams);
+
+    public void confirmPageAction() {
+        driverManager.confirmAlert();
+    }
 }

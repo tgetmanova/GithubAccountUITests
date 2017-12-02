@@ -4,6 +4,8 @@ import com.github.spb.tget.uitests.utils.ExecutionContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Collection;
 
@@ -51,5 +53,13 @@ public class DriverManager {
 
     private void execute(Runnable runnable) {
         ExecutionContext.executeForSuccess(runnable, defaultWaitAttemptsCount, defaultWaitIntervalInMillis);
+    }
+
+    public void confirmAlert() {
+        getDriverWait().until(ExpectedConditions.alertIsPresent()).accept();
+    }
+
+    private WebDriverWait getDriverWait() {
+        return new WebDriverWait(getDriver(), 10);
     }
 }

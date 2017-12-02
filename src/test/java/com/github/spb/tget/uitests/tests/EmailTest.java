@@ -27,7 +27,7 @@ public class EmailTest extends BaseTest {
     }
 
     @Test
-    public void mustSeeNotificationAfterNewEmailAddressIsAdded(){
+    public void mustSeeNotificationAfterNewEmailAddressIsAdded() {
         loginManager.login();
         topMenuManager.openProfileSettingsPage();
         profileManager.goToEmailsPage();
@@ -38,7 +38,7 @@ public class EmailTest extends BaseTest {
     }
 
     @Test
-    public void mustSeeNewlyAddedEmailAddressInTheEmailsList(){
+    public void mustSeeNewlyAddedEmailAddressInTheEmailsList() {
         loginManager.login();
         topMenuManager.openProfileSettingsPage();
         profileManager.goToEmailsPage();
@@ -49,8 +49,33 @@ public class EmailTest extends BaseTest {
         emailManager.verifyEmailAddressIsInTheList(email);
     }
 
+    @Test
+    public void canAddNewEmailAddressToProfile() {
+        loginManager.login();
+        topMenuManager.openProfileSettingsPage();
+        profileManager.goToEmailsPage();
+
+        String email = RandomUtils.getRandomEmailAddress();
+        emailManager.submitNewEmailAddress(email);
+
+        emailManager.verifyEmailAddressExists(email);
+    }
+
+    @Test
+    public void canDeleteEmailAddress() {
+        loginManager.login();
+        topMenuManager.openProfileSettingsPage();
+        profileManager.goToEmailsPage();
+
+        String email = RandomUtils.getRandomEmailAddress();
+        emailManager.submitNewEmailAddress(email);
+
+        emailManager.removeEmailAddress(email);
+        emailManager.verifyEmailAddressDoesNotExist(email);
+    }
+
     @AfterClass
-    public static void cleanupEmails(){
+    public static void cleanupEmails() {
         List<String> emailsToCleanup = EmailApiUtils.getEmails()
                 .stream()
                 .filter(e -> !e.getVerified())

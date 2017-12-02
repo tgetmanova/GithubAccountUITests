@@ -22,6 +22,10 @@ public class EmailsPage extends Page {
     @FindBy(xpath = "//*[@id=\"settings-emails\"]/li")
     private List<WebElement> emailAddressesSpans;
 
+    private String emailsSpanCssTemplate = "#settings-emails > li:nth-child(%d)";
+
+    private String emailDeleteButtonCssTemplate = emailsSpanCssTemplate + " button[class*=\"btn-link settings-remove-email \"]";
+
     public EmailsPage(WebDriver driver) {
         super(driver);
     }
@@ -42,14 +46,23 @@ public class EmailsPage extends Page {
         return emailAddressesSpans;
     }
 
-    public WebElement locateDeleteEmailButton(String email) {
-        // TODO fix not workable location
-        return driverManager.getDriver().findElement(By.xpath(String.format(
-                "//li[contains(text(),'%s')]/button[@class=\"btn-link settings-remove-email \"]", email)));
-    }
-
     @Override
     public String getUrl(String... urlParams) {
         return getBaseUrl() + "/settings/emails";
+    }
+
+    public void clickDeleteButtonForEmailAddress(String emailAddressToRemove) {
+        int emailsCount = getEmailAddressesListItems().size();
+
+        for (int i = 1; i <= emailsCount; i++) {
+            if (driverManager.getDriver().findElements(By.cssSelector(
+                    String.format(emailsSpanCssTemplate, i))).get(0).getText().contains(emailAddressToRemove)) {
+                driverManager.getDriver().findElements(By.cssSelector(
+                        String.format(emailDeleteButtonCssTemplate, i))).get(0).click();
+                return;
+            }
+        }
+        throw new IllegalStateException(
+                "Couldn't find \"Delete\" bin icon for the given email: " + emailAddressToRemove);
     }
 }
