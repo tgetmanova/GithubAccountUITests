@@ -20,7 +20,7 @@ public class ProfileManager {
         profileSettingsPage.openKeysPage();
     }
 
-    public void gotToEmailsPage() {
+    public void gotoToEmailsPage() {
         profileSettingsPage.openEmailsPage();
     }
 }

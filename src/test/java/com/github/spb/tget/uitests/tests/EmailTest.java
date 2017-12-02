@@ -30,7 +30,7 @@ public class EmailTest extends BaseTest {
     public void mustSeeNotificationAfterNewEmailAddressIsAdded(){
         loginManager.login();
         topMenuManager.openProfileSettingsPage();
-        profileManager.gotToEmailsPage();
+        profileManager.gotoToEmailsPage();
 
         emailManager.submitNewEmailAddress(RandomUtils.getRandomEmailAddress());
 
@@ -41,7 +41,7 @@ public class EmailTest extends BaseTest {
     public void mustSeeNewlyAddedEmailAddressInTheEmailsList(){
         loginManager.login();
         topMenuManager.openProfileSettingsPage();
-        profileManager.gotToEmailsPage();
+        profileManager.gotoToEmailsPage();
 
         String email = RandomUtils.getRandomEmailAddress();
         emailManager.submitNewEmailAddress(email);
